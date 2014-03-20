@@ -1,17 +1,62 @@
-# Brunch app
+# The Goal
 
-This is HTML5 application, built with [Brunch](http://brunch.io).
+This is HTML5 + ReactJS + CoffeeScript application, built with [Brunch](http://brunch.io).
 
-## Getting started
-* Install (if you don't have them):
-    * [Node.js](http://nodejs.org): `brew install node` on OS X
-    * [Brunch](http://brunch.io): `npm install -g brunch`
-    * [Bower](http://bower.io): `npm install -g bower`
-    * Brunch plugins and Bower dependencies: `npm install & bower install`.
-* Run:
-    * `brunch watch --server` — watches the project with continuous rebuild. This will also launch HTTP server with [pushState](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history).
-    * `brunch build --production` — builds minified project for production
-* Learn:
-    * `public/` dir is fully auto-generated and served by HTTP server.  Write your code in `app/` dir.
-    * Place static files you want to be copied from `app/assets/` to `public/`.
-    * [Brunch site](http://brunch.io), [Chaplin site](http://chaplinjs.org)
+## Raison d'Etre
+
+I love [React.js][] and I love [CoffeeScript][]. But they aren't the most fun to use in concert. React has JSX, which is very cool (I even built [react-brunch][] so I could use it with [brunch.io][]), but it requires writing straight, *tedious*, javascript. Not ideal (For *me* anyway). 
+
+Really, I want what I perceive to be the best of both worlds, and to treat react components as classes (at least in definition, it gets me some nice editor/ide benefits). 
+
+By combining [react-coffee][] with [react-tags-brunch][] you can write the following example. It's clean and pretty (to my eyes).
+
+```coffeescript
+class HeaderBar extends React.Component
+  render: ->
+    (@header null,
+      (@h1 null, "My App")
+    )
+
+module.exports= HeaderBar.toComponent()
+```
+
+
+## For The Curious
+
+[react-tags-brunch][] is a build-time plugin for [brunch][]. It scans the source (as a String) and converts calls from `this.TAG` to `React.DOM.TAG`, but only if 'TAG' is actually a dom component defined in `React.DOM`.
+
+The example above, after it's been run through [brunch][], looks like this:
+
+```javascript
+var HeaderBar,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+HeaderBar = (function(_super) {
+  __extends(HeaderBar, _super);
+
+  function HeaderBar() {
+    return HeaderBar.__super__.constructor.apply(this, arguments);
+  }
+
+  HeaderBar.prototype.render = function() {
+    return React.DOM.header(null, React.DOM.h1(null, "My App"));
+  };
+
+  return HeaderBar;
+
+})(React.Component);
+
+module.exports = HeaderBar.toComponent();
+```
+
+[react-coffee][] is a runtime micro-lib that will take the CoffeeScript class and convert it to a react component when `toComponent` is called. That's why the result of `HeaderBar.toComponent()` is what's exported from the module. 
+
+
+[React.js]: facebook.github.io/react/
+[CoffeeScript]: http://coffeescript.org/
+[brunch.io]: http://brunch.io
+[brunch]: http://brunch.io
+[react-coffee]: https://github.com/elucidata/react-coffee
+[react-tags-brunch]: https://github.com/elucidata/react-tags-brunch
+[react-brunch]: https://github.com/darthapo/react-brunch

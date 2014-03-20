@@ -7,3 +7,12 @@ exports.config =
       joinTo: 'app.css'
     templates:
       joinTo: 'app.js'
+
+  plugins:
+    
+    react:
+      autoIncludeCommentBlock: yes
+      harmony: yes
+    
+    reactTags:
+      verbose: yes
