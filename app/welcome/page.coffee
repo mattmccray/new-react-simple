@@ -1,4 +1,5 @@
 Header= require './header'
+Footer= require './footer'
 
 class WelcomePage extends React.Component
 
@@ -8,6 +9,7 @@ class WelcomePage extends React.Component
       (@section className:'body',
         (@p null, 'Howdy!')
       )
+      (Footer null)
     )
 
 
