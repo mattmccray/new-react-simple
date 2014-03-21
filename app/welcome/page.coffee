@@ -1,13 +1,15 @@
 Header= require './header'
 Footer= require './footer'
 
+Test= require '../test'
+
 class WelcomePage extends React.Component
 
   render: ->
     (@article className:'welcome-page',
       (Header null)
       (@section className:'body',
-        (@p null, 'Howdy!')
+        (Test null)
       )
       (Footer null)
     )
