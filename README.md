@@ -52,6 +52,39 @@ module.exports = HeaderBar.toComponent();
 
 [react-coffee][] is a runtime micro-lib that will take the CoffeeScript class and convert it to a react component when `toComponent` is called. That's why the result of `HeaderBar.toComponent()` is what's exported from the module. 
 
+# ES6
+
+Interestingly, you can use JSX's `harmony` flag (enabled by default in this project) to generate ES6 classes and use [react-coffee][] with it. Like this:
+
+
+test.jsx:
+```javascript
+// This will work with ES6 classes as well!
+class Test extends React.Component {
+
+  static message() {
+    return "Hello, mate."
+  }
+
+  getInitialState() {
+    return {
+      hello: 'Howdy'
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        You said: { this.type.message() }<br/>
+        I said: { this.state.hello }
+      </div>
+    )
+  }
+
+}
+
+module.exports= Test.toComponent()
+```
 
 [React.js]: facebook.github.io/react/
 [CoffeeScript]: http://coffeescript.org/
